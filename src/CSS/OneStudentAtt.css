@@ -1,0 +1,69 @@
+.student-attendance-container {
+    padding: 10px;
+background-color: rgba(172, 255, 47, 0.352);
+}
+
+.student-attendance-container  .Attdetails {
+    padding: 10px;
+
+}
+
+.student-attendance-container>h1 {
+    margin-bottom: 10px;
+}
+
+.student-attendance-container.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    
+    background-color: red;
+}
+
+.student-attendance-container>table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.student-attendance-container>th,
+td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.student-attendance-container>th {
+    background-color: #f2f2f2;
+}
+
+.student-attendance-container .present {
+    /* background-color: Green; */
+    background-color: rgba(172, 255, 47, 0.308);
+
+    /* Green for Present */
+}
+
+.student-attendance-container  .absent {
+    background-color: red;
+    /* Red for Absent */
+}
+
+.student-attendance-container .Attdetails {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+    th,
+    td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .student-attendance-container .Attdetails {
+        flex-direction: column;
+        text-align: center;
+    }
+}

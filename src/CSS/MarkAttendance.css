@@ -1,0 +1,40 @@
+.btnAttendance {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btnAttendance>button {
+    margin: 10px 20px 30px;
+    width: 12%;
+    height: 30px;
+    border-radius: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    border: none;
+}
+
+.btnAttendance #btn1 {
+    background-color: red;
+    color: white;
+}
+
+.btnAttendance #btn1:hover {
+    background-color: rgb(152, 50, 50);
+}
+
+.btnAttendance #btn2 {
+    background-color: green;
+    color: white;
+}
+
+.btnAttendance #btn2:hover {
+    background-color: rgb(15, 91, 46);
+}
+
+@media only screen and (max-width: 600px) {
+    .btnAttendance > button {
+
+        width: 30%;
+    }
+}
