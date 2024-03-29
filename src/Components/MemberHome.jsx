@@ -57,7 +57,7 @@ export default function MemberHome() {
 
       <div className="memberHome">
         <div className="atten">
-          <h1 style={{ borderBottom: "2px solid black", margin: "20px 20px" }}>Dashboard <span style={{ fontSize: "20px", float: "right" }}><Icon.GeoAltFill />{memberHomeData.gymdetail.gymAddress}</span></h1>
+          <h1 style={{ borderBottom: "2px solid black", margin: "20px 20px" }}>Dashboard <span style={{ fontSize: "20px", float: "right" }}><Icon.GeoAltFill />{memberHomeData.gymdetail.gymAddress},{memberHomeData.gymdetail.city}</span></h1>
           <button className='Abtn' onClick={() => navigate("/memberattendance")}>Attendance</button>
         </div>
 
@@ -83,13 +83,21 @@ export default function MemberHome() {
                   <p>{memberHomeData.allData.phone}</p>
                 </div>
 
+
                 <div className="infooo">
                   <span><Icon.PersonWorkspace /></span>
                   <p>{(memberHomeData.allData.gymname)}</p>
                 </div>
+
+                <div className="infooo">
+                  <span><strong>Category : </strong></span>
+                  <p>{memberHomeData.gymdetail.category}</p>
+                </div>
+
+
               </div>
               <hr />
-              <p>Dite : {memberHomeData.allData.dite}</p>
+              <p>Diet : {memberHomeData.allData.dite}</p>
             </div>
             <hr style={{ margin: "10px 0px" }} />
 
@@ -118,6 +126,8 @@ export default function MemberHome() {
                       <h4 style={{ margin: "0px 0px" }}> - </h4>
                       <p> {memberHomeData.gymdetail.eveningClosing} PM</p>
                     </div>
+
+
                   </div>
                   <br></br>
 

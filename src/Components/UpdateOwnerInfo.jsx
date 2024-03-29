@@ -107,21 +107,28 @@ export default function UpdateOwnerInfo() {
     }
 
     const [updategymdetails, setupdategymDetails] = useState({
-        morningOpening: "", morningClosing: "", eveningOpening: "", eveningClosing: "", gymAddress: "", descreption: ""
+        morningOpening: "", morningClosing: "", eveningOpening: "", eveningClosing: "", gymAddress: "", descreption: "", city: "", category: ""
     })
 
     const handleupdateGymDetail = (e) => {
         e.preventDefault();
         let name = e.target.name;
         let value = e.target.value
+        // console.log( e.target.name +"  "+ e.target.value)
 
-        setupdategymDetails({ ...updategymdetails, [name]: value })
+        if (name !== "category") {
+            setupdategymDetails({ ...updategymdetails, [name]: value });
+        } else { // For select input
+            setupdategymDetails({ ...updategymdetails, category: value });
+        }
+        // setupdategymDetails({ ...updategymdetails, [name]: value })
     }
 
     const gymDetailsUpdatePost = async (e) => {
         e.preventDefault();
-        const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption } = updategymdetails
+        const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, city, category } = updategymdetails
 
+        // console.log(category+"------");
 
         const res = await fetch("/updategymDetails", {
             method: "PATCH",
@@ -129,7 +136,7 @@ export default function UpdateOwnerInfo() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption
+                morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, city, category
             })
         })
         await res.json();
@@ -242,6 +249,9 @@ export default function UpdateOwnerInfo() {
                                 <br />
                                 <input type="text" name='gymname' value={updateOwner.gymname} onChange={ownerUpdate} />
                             </div>
+
+
+
                             <button className='EDITBTN' type='submit' onClick={sendUpdate}>Update</button>
                         </form>
                     </div>
@@ -268,6 +278,22 @@ export default function UpdateOwnerInfo() {
                                     <br />
                                     <input type="text" name='gymAddress' placeholder='GYM Address' value={updategymdetails.gymAddress} onChange={handleupdateGymDetail} />
                                 </div>
+
+                                <div className="time input-line">
+                                    <label htmlFor="">City</label>
+                                    <br />
+                                    <input type="text" name='city' placeholder='city' value={updategymdetails.city} onChange={handleupdateGymDetail} />
+                                </div>
+
+                                <div className="time input-line">
+                                    <select name='category' value={updategymdetails.category} onChange={handleupdateGymDetail}>
+                                        <option value=''>All Gyms</option>
+                                        <option value='CrossFit'>CrossFit</option>
+                                        <option value='Boutique'>Boutique Gyms</option>
+                                        <option value='Powerlifting'>Powerlifting Gyms</option>
+                                    </select>
+                                </div>
+                                
                                 <label htmlFor="">About Gym</label>
                                 <br />
                                 <textarea name="descreption" value={updategymdetails.descreption} onChange={handleupdateGymDetail} cols="65" placeholder='Enter About Gym'></textarea>

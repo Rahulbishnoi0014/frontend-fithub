@@ -54,7 +54,7 @@ export default function Ownerhome() {
 
       <NavBar2 gymname={ownerData.allData.gymname} />
       <div className="ownerhome">
-        <h2 style={{ borderBottom: "2px solid black" }}>Dashboard <span style={{ float: "right", fontSize: "15px" }} ><Icon.GeoAltFill />{ownerData.gymdetail.gymAddress}</span></h2>
+        <h2 style={{ borderBottom: "2px solid black" }}>Dashboard <span style={{ float: "right", fontSize: "15px" }} ><Icon.GeoAltFill />{ownerData.gymdetail.gymAddress},{ownerData.gymdetail.city}</span></h2>
         <br></br>
         <br></br>
 
@@ -78,9 +78,15 @@ export default function Ownerhome() {
                   <p>{ownerData.allData.phone}</p>
                 </div>
 
+
                 <div className="infooo">
                   <span><Icon.PersonWorkspace /></span>
                   <p>{(ownerData.allData.gymname)}</p>
+                </div>
+
+                <div className="infooo">
+                  <span><strong>Category : </strong></span>
+                  <p>{ownerData.gymdetail.category}</p>
                 </div>
               </div>
             </div>
@@ -117,12 +123,12 @@ export default function Ownerhome() {
                 </div>
                 {/* <h3 style={{ margin: "20px 0px" }}><Icon.GeoAltFill />{ownerData.gymdetail.gymAddress}</h3> */}
                 <hr style={{ margin: "20px 0px" }} />
-                
+
                 <h2>Gym Description</h2>
                 <br></br>
 
                 <h3>{ownerData.gymdetail.descreption}</h3>
-              
+
               </div>
 
               <div className="links">

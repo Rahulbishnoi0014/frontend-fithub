@@ -7,9 +7,9 @@ import "../CSS/addgymdetail.css"
 export default function AddGymDetails() {
     const navigate = useNavigate();
     const [gymdetails, setgymDetails] = useState({
-        mmorningOpening: "", morningClosing: "", eveningOpening: "", eveningClosing: "", gymAddress: "", descreption: ""
+        mmorningOpening: "", morningClosing: "", eveningOpening: "", eveningClosing: "", gymAddress: "", descreption: "", city: "", category: ""
     })
-    
+
 
     document.title = "Add Gym Details"
     const handleGymDetail = (e) => {
@@ -17,7 +17,15 @@ export default function AddGymDetails() {
         let name = e.target.name;
         let value = e.target.value;
 
-        setgymDetails({ ...gymdetails, [name]: value })
+        console.log( e.target.name +"  "+ e.target.value)
+
+        if (name !== "category") {
+            setgymDetails({ ...gymdetails, [name]: value });
+        } else { // For select input
+            setgymDetails({ ...gymdetails, category: value });
+        }
+
+        // setgymDetails({ ...gymdetails, [name]: value })
     }
 
     const gymDetailsPost = async (e) => {
@@ -26,14 +34,14 @@ export default function AddGymDetails() {
 
             e.preventDefault();
 
-            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption } = gymdetails;
+            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, city, category } = gymdetails;
             const res = await fetch("/addgymDetails", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption
+                    morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, city, category
                 })
             });
 
@@ -109,6 +117,20 @@ export default function AddGymDetails() {
                             <input type="text" name='gymAddress' placeholder='GYM Address' value={gymdetails.gymAddress} onChange={handleGymDetail} />
                         </div>
 
+                        <div className="time input-line">
+                            <label htmlFor="">City</label>
+                            <br />
+                            <input type="text" name='city' placeholder='city' value={gymdetails.city} onChange={handleGymDetail} />
+                        </div>
+
+                        <div className="time input-line">
+                            <select name="category" value={gymdetails.category} onChange={handleGymDetail}>
+                                <option value=''>All Gyms</option>
+                                <option value='CrossFit'>CrossFit</option>
+                                <option value='Boutique'>Boutique Gyms</option>
+                                <option value='Powerlifting'>Powerlifting Gyms</option>
+                            </select>
+                        </div>
                         <label htmlFor="">About Gym</label>
                         <br />
                         <textarea name="descreption" value={gymdetails.descreption} onChange={handleGymDetail} cols="65" placeholder='Enter About Gym'></textarea>

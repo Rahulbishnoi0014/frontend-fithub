@@ -77,7 +77,7 @@ export default function AddMember() {
 
             const { userName, name, phone, address, amount, dite, remark } = addmember
             const gymname = ownerAllData.gymname
-            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, _id } = ownergymdetail
+            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, _id, city,category } = ownergymdetail
 
             const { feeDuration } = datq;
             const planeType = plane.feeDuration
@@ -91,7 +91,7 @@ export default function AddMember() {
                 },
                 body: JSON.stringify({
                     userName, name, phone, address, registerdate, planeType, amount, dite, remark, feeDuration,
-                    morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, _id, gymname
+                    morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress,city,category, descreption, _id, gymname
                 })
             })
             await res.json();
@@ -197,7 +197,7 @@ export default function AddMember() {
                                 <label htmlFor="Register Date">Register Date: </label>
                                 <div className="icon">
                                     <Icon.ClockFill className='inputIcon' />
-                                    <input type="date" name='registerdate' placeholder="Registeratoon date" onChange={handleDate} required/>
+                                    <input type="date" name='registerdate' placeholder="Registeraton date" onChange={handleDate} required/>
                                 </div>
                             </div>
 
@@ -224,7 +224,7 @@ export default function AddMember() {
                             </div>
                         </div>
                         <br />
-                        <textarea name="dite" cols="100" rows="5" placeholder='Add Dite' onChange={handleMember}></textarea>
+                        <textarea name="dite" cols="100" rows="5" placeholder='Add Diet' onChange={handleMember}></textarea>
                         <br />
                         <button onClick={postMember}>Add Member</button>
                     </form>
