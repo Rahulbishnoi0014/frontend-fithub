@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useCallback, useState } from 'react'
+
+import Webcam from 'react-webcam';
+import axios from 'axios';
+
+
+
 import NavBar2 from "./NavBar2"
 import "../CSS/addmember.css"
 import { useNavigate } from 'react-router-dom'
@@ -51,12 +57,13 @@ export default function AddMember() {
     const [datq, setDat] = useState({ feeDuration: "" });
     const [registerationDate, setregisterDate] = useState({ registerdate: "" })
     const [plane, setplane] = useState({ feeDuration: "" })
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleMember = (e) => {
         e.preventDefault();
         let name = e.target.name;
         let value = (e.target.value).toLowerCase();
-        setAddmember({ ...addmember, [name]: value})
+        setAddmember({ ...addmember, [name]: value })
         console.log(addmember);
     }
 
@@ -72,29 +79,50 @@ export default function AddMember() {
     }
 
     const postMember = async (e) => {
+        setIsSubmitting(true);
         try {
             e.preventDefault();
 
             const { userName, name, phone, address, amount, dite, remark } = addmember
             const gymname = ownerAllData.gymname
-            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, _id, city,category } = ownergymdetail
+            const { morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress, descreption, _id, city, category } = ownergymdetail
 
             const { feeDuration } = datq;
             const planeType = plane.feeDuration
             const { registerdate } = registerationDate
 
 
-            const res = await fetch("/addmember", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    userName, name, phone, address, registerdate, planeType, amount, dite, remark, feeDuration,
-                    morningOpening, morningClosing, eveningOpening, eveningClosing, gymAddress,city,category, descreption, _id, gymname
-                })
-            })
-            await res.json();
+           
+            const formData = new FormData();
+            formData.append('userName', userName);
+            formData.append('name', name);
+            formData.append('phone', phone);
+            formData.append('address', address);
+            formData.append('registerdate', registerdate);
+            formData.append('planeType', planeType);
+            formData.append('amount', amount);
+            formData.append('dite', dite);
+            formData.append('remark', remark);
+            formData.append('feeDuration', feeDuration);
+            formData.append('morningOpening', morningOpening);
+            formData.append('morningClosing', morningClosing);
+            formData.append('eveningOpening', eveningOpening);
+            formData.append('eveningClosing', eveningClosing);
+            formData.append('gymAddress', gymAddress);
+            formData.append('city', city);
+            formData.append('category', category);
+            formData.append('descreption', descreption);
+            formData.append('_id', _id);
+            formData.append('gymname', gymname);
+            formData.append('File1', capturedImage); // Assuming imgFile is the File object for the image
+
+            const res = await fetch('/addmember', {
+                method: 'POST',
+                body: formData
+              })
+
+              setIsSubmitting(false);
+
             if (res.status === 422) {
                 toast.error('Fill All The Fields!', {
                     position: "top-right",
@@ -107,8 +135,32 @@ export default function AddMember() {
                     theme: "dark",
                 });
             }
+            else if (res.status === 201) {
+                toast.error('No face found!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
             else if (res.status === 402) {
                 toast.warn('UserName Already Exist !', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+            else if (res.status === 204) {
+                toast.warn('User FACE Already Exist !', {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -143,10 +195,29 @@ export default function AddMember() {
 
 
         } catch (error) {
+
             console.log(error);
-            navigate("/")
+            navigate("/addmember")
         }
     }
+    // ---------------------face-------------
+    const webcamRef = useRef(null);
+
+    const [capturedImage, setCapturedImage] = useState(null);
+    const [name, setName] = useState(null);
+    const [status, setstatus] = useState(false);
+
+    const capture = useCallback(() => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setCapturedImage(imageSrc);
+    }, [webcamRef]);
+
+    const retake = () => {
+        setCapturedImage(null);
+    };
+
+    
+    // ---------------------face----------------
 
     return (
         <>
@@ -165,39 +236,41 @@ export default function AddMember() {
                                 <label htmlFor="userName">userName: </label>
                                 <div className="icon">
                                     <Icon.PersonBadge className='inputIcon' />
-                                    <input type="text" name='userName' placeholder='UserName' onChange={handleMember} required/>
+                                    <input type="text" name='userName' placeholder='UserName' onChange={handleMember} required />
                                 </div>
                             </div>
                             <div className="lable">
                                 <label htmlFor="name">Name: </label>
                                 <div className="icon">
                                     <Icon.PersonBoundingBox className='inputIcon' />
-                                    <input type="text" name='name' placeholder='Name' onChange={handleMember} required/>
+                                    <input type="text" name='name' placeholder='Name' onChange={handleMember} required />
                                 </div>
                             </div>
                         </div>
+
                         <div className="flex-input">
                             <div className="lable">
                                 <label htmlFor="phone">Phone No.: </label>
                                 <div className="icon">
                                     <Icon.PhoneVibrate className='inputIcon' />
-                                    <input type="number" name="phone" placeholder='Phone Number' onChange={handleMember} required/>
+                                    <input type="number" name="phone" placeholder='Phone Number' onChange={handleMember} required />
                                 </div>
                             </div>
                             <div className="lable">
                                 <label htmlFor="address">Address: </label>
                                 <div className="icon">
                                     <Icon.HouseLockFill className='inputIcon' />
-                                    <input type="text" name="address" placeholder='Address' onChange={handleMember} required/>
+                                    <input type="text" name="address" placeholder='Address' onChange={handleMember} required />
                                 </div>
                             </div>
                         </div>
+
                         <div className="flex-input">
                             <div className="lable">
                                 <label htmlFor="Register Date">Register Date: </label>
                                 <div className="icon">
                                     <Icon.ClockFill className='inputIcon' />
-                                    <input type="date" name='registerdate' placeholder="Registeraton date" onChange={handleDate} required/>
+                                    <input type="date" name='registerdate' placeholder="Registeraton date" onChange={handleDate} required />
                                 </div>
                             </div>
 
@@ -214,19 +287,42 @@ export default function AddMember() {
                                 </div>
                             </div>
                         </div>
+                        
                         <div className="flex-input">
                             <div className="lable">
                                 <label htmlFor="Amount">Amount: </label>
                                 <div className="icon">
                                     <Icon.CurrencyRupee className='inputIcon' />
-                                    <input type="number" name='amount' placeholder='Amount' onChange={handleMember} required/>
+                                    <input type="number" name='amount' placeholder='Amount' onChange={handleMember} required />
                                 </div>
                             </div>
                         </div>
                         <br />
+                        {/* --------- */}
+                        <div className="camera">
+                            {capturedImage ?
+                                <div>
+                                    <img src={capturedImage} alt="Captured" style={{ maxWidth: '100%' }} />
+                                    <p>Captured Image</p>
+                                </div> :
+                                <Webcam width={200} ref={webcamRef} screenshotFormat="image/jpeg" />
+                            }
+
+
+
+                            {capturedImage ?
+                                <h1 className='camerabutton' onClick={retake}>Retake</h1>
+                                :
+                                <h1  className='camerabutton' onClick={capture}>Capture</h1>
+                            }
+
+
+                        </div>
+                        {/* --------- */}
+
                         <textarea name="dite" cols="100" rows="5" placeholder='Add Diet' onChange={handleMember}></textarea>
                         <br />
-                        <button onClick={postMember}>Add Member</button>
+                        <button onClick={postMember} disabled={isSubmitting} style={{ backgroundColor: isSubmitting ? 'grey' : '' }}>{isSubmitting ? 'Submitting...' : 'Submit'}</button>
                     </form>
                 </div>
             </div>

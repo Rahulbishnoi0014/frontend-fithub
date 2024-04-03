@@ -13,6 +13,8 @@ import OneMemberData from "./Components/OneMemberData";
 import AddGymDetails from "./Components/AddGymDetails";
 import MemberSignin from "./Components/MemberSignin";
 import MemberHome from "./Components/MemberHome";
+import FaceAtt from "./Components/FaceAtt";
+
 import Alert from "./Alert/Alert";
 import { useState } from "react";
 import UpdateOwnerInfo from "./Components/UpdateOwnerInfo";
@@ -50,6 +52,8 @@ function App() {
           <Route path="/memberhome" element={<MemberHome />} />
           <Route path="/updateOwnerInfo" element={<UpdateOwnerInfo/>}/>
           <Route path="/attendance" element={<MarkAttendance/>}/>
+          <Route path="/faceattendance" element={<FaceAtt/>}/>
+
           <Route path={"/onestudentattendance/:id"} element={<OneStudentAtt/>} />
           <Route path={"/memberattendance"} element={<MemberHomeAttendance/>}/>
           <Route path="/logout" element={<Logout />} />

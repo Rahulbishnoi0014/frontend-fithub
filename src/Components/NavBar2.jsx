@@ -47,6 +47,12 @@ export default function NavBar2(props) {
                                     <span className="link">Attendance</span>
                                 </NavLink>
                             </li>
+                            <li className="list">
+                                <NavLink to="/faceattendance" className="nav-link">
+                                    <Icon.People className='icon' />
+                                    <span className="link">Face Recognition</span>
+                                </NavLink>
+                            </li>
                         </ul>
 
                         <div className="bottom-cotent">
