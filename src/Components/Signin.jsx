@@ -93,6 +93,8 @@ export default function Signin() {
             <div className="links">
               <NavLink to="/signup" title='Register Yourself'>Register Yourself</NavLink>
               <NavLink to="/memberlogin" title='Member Login'>Member Login</NavLink>
+              <NavLink to="/home" title='Home'>Home</NavLink>
+
             </div>
           </div>
         </div>

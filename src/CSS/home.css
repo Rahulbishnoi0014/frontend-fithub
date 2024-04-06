@@ -1,0 +1,117 @@
+.home {
+    /* background-color: rgba(153, 205, 50, 0.363); */
+    height: max-content;
+    margin: 0;
+    padding: 0;
+
+    /* background-color: rgba(153, 205, 50, 0.221); */
+    /* background-image: url("https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    justify-content: space-evenly;
+}
+
+.cardbox{
+    width: 300px;
+    /* height: 400px; */
+    padding: 1rem;
+    border: 2px solid green;
+    font-size: 2rem;
+    background-color: rgb(192, 255, 66,.2);
+    border-radius: 5%;
+}
+
+.cardbox p{
+    font-size: 1.5rem;
+    color: rgba(0, 128, 0, 0.693);
+
+}
+
+.cardbox h2{
+    color: green;
+}
+
+
+
+.navbar h1{
+    margin: 15px 20px;
+    font-size: 2.2rem;
+    color: white;
+}
+.section1 {
+    display: flex;
+    flex-wrap: wrap;
+
+    /* background-color: rgba(153, 205, 50, 0.221); */
+
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+
+.textbox {
+    width: 50%;
+    padding: 3rem;
+    height: max-content;
+    color: yellowgreen;
+    font-size: 2.5rem;
+
+    border-radius: 10%;
+    /* border: 2px solid green; */
+
+    margin-top: 10px;
+    background-color: rgba(153, 205, 50, 0.221);
+}
+
+.textbox button .link {
+    font-size: 1rem;
+    text-decoration: none;
+    color: green;
+    font-size: 2rem;
+
+}
+
+.textbox button{
+    border: 0;
+    border: 2px solid green;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: transparent;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.textbox button:hover{
+    transform: scale(1.03);
+}
+
+.textbox button:active{
+        background-color: rgba(0, 128, 0, 0.323);    
+}
+
+
+.section1 img {
+    width: 45%;
+
+}
+
+
+.footer{
+    background-color: greenyellow;
+
+    padding: 1rem;
+    color:green;
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+.footer .contact{
+    
+}

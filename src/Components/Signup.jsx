@@ -105,7 +105,9 @@ export default function Signup(props) {
             <h4>Already Have An Account</h4>
             <div className="links">
               <NavLink to="/" title='Owner Login'>Owner Login</NavLink>
-              {/* <NavLink to="/memberlogin" title='Member Login'>Member Login</NavLink> */}
+              <NavLink to="/memberlogin" title='Member Login'>Member Login</NavLink>
+              <NavLink to="/home" title='Home'>Home</NavLink>
+
             </div>
           </div>
         </div>

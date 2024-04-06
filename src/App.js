@@ -21,6 +21,7 @@ import UpdateOwnerInfo from "./Components/UpdateOwnerInfo";
 import MarkAttendance from "./Components/MarkAttendance";
 import OneStudentAtt from "./Components/OneStudentAtt";
 import MemberHomeAttendance from "./Components/MemberHomeAttendance";
+import Home from "./Components/Home";
 function App() {
 
   const [alert, setAlert] = useState(null);
@@ -43,6 +44,8 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup showAlert={showAlert} />} />
           <Route path="/" element={<Signin />} />
+          <Route path="/home" element={<Home/>} />
+
           <Route path="/ownerhome" element={<Ownerhome />} />
           <Route path="/addmember" element={<AddMember />} />
           <Route path="/memberdetails" element={<MemberDetails />} />
